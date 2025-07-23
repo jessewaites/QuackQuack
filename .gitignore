@@ -1,0 +1,13 @@
+# Built applications
+*.app/
+QuackQuack.app/
+
+# Debug files
+debug.log
+*.log
+
+# macOS
+.DS_Store
+
+# Temporary files
+*.tmp
