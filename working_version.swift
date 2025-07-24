@@ -29,11 +29,22 @@ class QuackApp: NSObject, NSApplicationDelegate {
         let contentView = NSView(frame: window.contentView!.bounds)
         window.contentView = contentView
         
-        // Scroll view for emojis (full height since no search)
-        let scrollView = NSScrollView(frame: NSRect(x: 20, y: 20, width: 460, height: 540))
+        // Scroll view for emojis (reduced height to make room for credits)
+        let scrollView = NSScrollView(frame: NSRect(x: 20, y: 50, width: 460, height: 510))
         scrollView.hasVerticalScroller = true
         scrollView.autohidesScrollers = false
         contentView.addSubview(scrollView)
+        
+        // Add credits text at the bottom
+        let creditsLabel = NSTextField(frame: NSRect(x: 20, y: 20, width: 460, height: 20))
+        creditsLabel.stringValue = "Created by Jesse & Christine ❤️"
+        creditsLabel.isEditable = false
+        creditsLabel.isBordered = false
+        creditsLabel.backgroundColor = NSColor.clear
+        creditsLabel.textColor = NSColor.secondaryLabelColor
+        creditsLabel.font = NSFont.systemFont(ofSize: 12)
+        creditsLabel.alignment = .center
+        contentView.addSubview(creditsLabel)
         
         // Create emoji grid with all emojis
         createEmojiGrid(in: scrollView, searchTerm: "")
@@ -211,25 +222,28 @@ class QuackApp: NSObject, NSApplicationDelegate {
     }
     
     func showGreenFlash(at point: NSPoint, in parentView: NSView) {
-        // Create green circle
-        let flashView = NSView(frame: NSRect(x: point.x + 15, y: point.y + 15, width: 14, height: 14))
-        flashView.wantsLayer = true
-        flashView.layer?.backgroundColor = NSColor.systemGreen.cgColor
-        flashView.layer?.cornerRadius = 7
-        flashView.alphaValue = 0.0
+        // Create green checkmark emoji
+        let checkmarkLabel = NSTextField(frame: NSRect(x: point.x + 10, y: point.y + 10, width: 24, height: 24))
+        checkmarkLabel.stringValue = "✅"
+        checkmarkLabel.isEditable = false
+        checkmarkLabel.isBordered = false
+        checkmarkLabel.backgroundColor = NSColor.clear
+        checkmarkLabel.font = NSFont.systemFont(ofSize: 20)
+        checkmarkLabel.alignment = .center
+        checkmarkLabel.alphaValue = 0.0
         
-        parentView.addSubview(flashView)
+        parentView.addSubview(checkmarkLabel)
         
         // Animate flash
         NSAnimationContext.runAnimationGroup({ context in
             context.duration = 0.15
-            flashView.animator().alphaValue = 1.0
+            checkmarkLabel.animator().alphaValue = 1.0
         }, completionHandler: {
             NSAnimationContext.runAnimationGroup({ context in
                 context.duration = 0.15
-                flashView.animator().alphaValue = 0.0
+                checkmarkLabel.animator().alphaValue = 0.0
             }, completionHandler: {
-                flashView.removeFromSuperview()
+                checkmarkLabel.removeFromSuperview()
             })
         })
     }

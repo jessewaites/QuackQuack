@@ -10,6 +10,9 @@ mkdir -p QuackQuack.app/Contents/Resources
 # Compile Swift to executable
 swiftc -o QuackQuack.app/Contents/MacOS/QuackQuack working_version.swift -framework Cocoa
 
+# Copy app icon
+cp icon.icns QuackQuack.app/Contents/Resources/
+
 # Create Info.plist
 cat > QuackQuack.app/Contents/Info.plist << EOF
 <?xml version="1.0" encoding="UTF-8"?>
@@ -30,6 +33,10 @@ cat > QuackQuack.app/Contents/Info.plist << EOF
     <string>1.0</string>
     <key>CFBundlePackageType</key>
     <string>APPL</string>
+    <key>CFBundleSignature</key>
+    <string>????</string>
+    <key>CFBundleIconFile</key>
+    <string>icon</string>
     <key>LSUIElement</key>
     <false/>
 </dict>
