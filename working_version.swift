@@ -33,7 +33,7 @@ class QuackApp: NSObject, NSApplicationDelegate, NSSearchFieldDelegate {
         
         // Add search field at the top using NSSearchField
         let searchField = NSSearchField(frame: NSRect(x: 20, y: 540, width: 460, height: 24))
-        searchField.placeholderString = "Search emojis... (e.g., 'green', 'heart', 'duck')"
+        searchField.placeholderString = "Search emoji, then click to copy to clipboard"
         searchField.delegate = self
         contentView.addSubview(searchField)
         
